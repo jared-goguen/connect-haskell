@@ -1,6 +1,6 @@
 module Lib
-    ( someFunc
+    ( showBoard
     ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+showBoard :: IO ()
+showBoard = putStrLn "board"
