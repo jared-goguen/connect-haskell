@@ -39,11 +39,11 @@ instance Show Team where
     show Yellow = "Y"
 
 instance Show Slot where
-    show (Slot Nothing) = "   "
-    show (Slot (Just disc)) = " " ++ show disc ++ " "
+    show (Slot Nothing) = ""
+    show (Slot (Just disc)) = show disc
 
 instance Show Row where
-    show (Row row) = "|" ++ unwords (map show row) ++ "|"
+    show (Row row) = "| " ++ intercalate " | " (map show row) ++ " |"
 
 instance Show Board where
     show (Board board) = intercalate "\n" (map show board)
