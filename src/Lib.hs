@@ -11,7 +11,7 @@ data Team = Red | Yellow
 type Disc = Team
 data Slot = Slot (Maybe Disc)
 data Row = Row [Slot]
-data Board = Board [Row] deriving (Show)
+data Board = Board [Row]
 
 redDisc :: Disc
 redDisc = Red
@@ -44,3 +44,6 @@ instance Show Slot where
 
 instance Show Row where
     show (Row row) = "|" ++ unwords (map show row) ++ "|"
+
+instance Show Board where
+    show (Board board) = intercalate "\n" (map show board)
