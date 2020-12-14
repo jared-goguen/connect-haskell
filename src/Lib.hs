@@ -2,14 +2,16 @@ module Lib
     ( showBoard
     ) where
 
+import Data.List
+
 showBoard :: IO ()
 showBoard = print board
 
-data Team = Red | Yellow | Empty
+data Team = Red | Yellow
 type Disc = Team
-type Slot = Disc
-type Row = [Slot]
-type Board = [Row]
+data Slot = Slot (Maybe Disc) deriving (Show)
+data Row = Row [Slot] deriving (Show)
+data Board = Board [Row] deriving (Show)
 
 redDisc :: Disc
 redDisc = Red
@@ -17,22 +19,21 @@ redDisc = Red
 yellowDisc :: Disc
 yellowDisc = Yellow
 
-emptyDisc :: Disc
-emptyDisc = Empty
-
 redSlot :: Slot
-redSlot = redDisc
+redSlot = Slot (Just redDisc)
 
 yellowSlot :: Slot
-yellowSlot = yellowDisc
+yellowSlot = Slot (Just yellowDisc)
 
 emptySlot :: Slot
-emptySlot = emptyDisc
+emptySlot = Slot Nothing
+
+slots :: [Row]
+slots = [Row [emptySlot, emptySlot, emptySlot], Row [emptySlot, emptySlot, emptySlot], Row [emptySlot, redSlot, yellowSlot]]
 
 board :: Board
-board = [[emptySlot, emptySlot, emptySlot], [emptySlot, emptySlot, emptySlot], [emptySlot, redSlot, yellowSlot]]
+board = Board slots
 
 instance Show Team where
     show Red = "R"
     show Yellow = "Y"
-    show Empty = " "
