@@ -9,7 +9,7 @@ showBoard = print board
 
 data Team = Red | Yellow
 type Disc = Team
-data Slot = Slot (Maybe Disc) deriving (Show)
+data Slot = Slot (Maybe Disc)
 data Row = Row [Slot] deriving (Show)
 data Board = Board [Row] deriving (Show)
 
@@ -37,3 +37,7 @@ board = Board slots
 instance Show Team where
     show Red = "R"
     show Yellow = "Y"
+
+instance Show Slot where
+    show (Slot Nothing) = "   "
+    show (Slot (Just disc)) = " " ++ show disc ++ " "
