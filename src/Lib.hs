@@ -10,8 +10,11 @@ showBoard = print board
 data Team = Red | Yellow
 type Disc = Team
 data Slot = Slot (Maybe Disc)
-data Row = Row [Slot]
-data Board = Board [Row]
+data Board = Board {
+    slots :: [[Slot]],
+    height :: Int,
+    width :: Int
+}
 
 redDisc :: Disc
 redDisc = Red
@@ -28,22 +31,36 @@ yellowSlot = Slot (Just yellowDisc)
 emptySlot :: Slot
 emptySlot = Slot Nothing
 
-slots :: [Row]
-slots = [Row [emptySlot, emptySlot, emptySlot], Row [emptySlot, emptySlot, emptySlot], Row [emptySlot, redSlot, yellowSlot]]
+s :: [[Slot]]
+s = [ [emptySlot, emptySlot, emptySlot], [emptySlot, emptySlot, emptySlot], [emptySlot, redSlot, yellowSlot]]
 
 board :: Board
-board = Board slots
+board = Board {
+    slots = s
+}
 
 instance Show Team where
     show Red = "R"
     show Yellow = "Y"
 
 instance Show Slot where
-    show (Slot Nothing) = ""
+    show (Slot Nothing) = " "
     show (Slot (Just disc)) = show disc
 
-instance Show Row where
-    show (Row row) = "| " ++ intercalate " | " (map show row) ++ " |"
+blankLine :: Int -> String
+blankLine n = "|" ++ intercalate "|" (replicate n "---") ++ "|"
+
+rowLine :: [Slot] -> String
+rowLine s = "| " ++ intercalate " | " (map show slots) ++ " |\n" ++ blankLine (length slots)
 
 instance Show Board where
-    show (Board board) = intercalate "\n" (map show board)
+    show (Board rows _ _) = blankLine 3 ++ "\n" ++ intercalate "\n" (map show rows)
+
+
+
+
+
+
+
+
+
